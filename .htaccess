@@ -1,0 +1,16 @@
+RewriteEngine On
+
+#does the folder OR file exist? (ie. /index.html & css/style.css)
+#yes - pop out of htaccess and allow Appache to serve it
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+#does the url already have a country flag set?
+#no - add country flag (ie. http://angular.wlocal/ -> http://angular.wlocal/en-gb)
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+#RewriteRule !^en-gb/ /en-gb%{REQUEST_URI} [R=302,L]
+#RewriteRule !^vanilla/ /vanilla%{REQUEST_URI} [R=302,L]
+
+#if file folder not found, serve index.html (ie. http://angular.wlocal/en-gb/this-does-not-exist -> should serve index.html)
+RewriteRule . index.html [L]
