@@ -7,7 +7,8 @@
                 // remove selected class from all buttons
                 document.querySelectorAll(".route").forEach(item => item.classList.remove('selected'));
                 // select clicked element (visually)
-                document.querySelectorAll("#" + id).forEach(item => item.classList.add('selected'));
+                // document.querySelectorAll("#" + id).forEach(item => item.classList.add('selected'));
+		document.querySelectorAll(`section[data-url="${id}"]`).forEach(item => item.classList.add('selected'));
             }
             function load_content(id) {
                 console.log("Loading content for {" + id + "}");
@@ -18,7 +19,8 @@
             }
             function push(event) {
                 // Get id attribute of the box or button or link clicked
-                let id = event.target.id;
+                // let id = event.target.id;
+		let id = event.target.getAttribute('data-url');
                 // Visually select the clicked button/tab/box
                 select_tab(id);
                 // Update Title in Window's Tab
@@ -49,7 +51,9 @@
                 load_content(stateId);
             });
 			
-			load_content(decodeURIComponent(window.location.pathname.split('/')[3]));
+		let urlName = decodeURIComponent(window.location.pathname.split('/')[3]);
+		load_content(urlName);
+		select_tab(urlName);
         </script>
     <style>
             * { /* global font */
@@ -86,13 +90,13 @@
 
 <body>
 
-<section id = "root">
-    <section class = "route" id = "home">/home</section>
-    <section class = "route" id = "about">/about</section>
-    <section class = "route" id = "gallery">/gallery</section>
-    <section class = "route" id = "contact">/contact</section>
-    <section class = "route" id = "help">/help</section>
-    <section class = "route" id = "hello">/สวัสดี</section>
+<section id="root">
+	<section class="route" id="home" data-url="home">/home</section>
+	<section class="route" id="about" data-url="about">/about</section>
+	<section class="route" id="gallery" data-url="gallery">/gallery</section>
+	<section class="route" id="contact" data-url="contact">/contact</section>
+	<section class="route" id="help" data-url="help">/help</section>
+	<section class="route" id="hello" data-url="สวัสดี">/สวัสดี</section>
 </section>
 
 <main id = "content">Content loading...</main>
